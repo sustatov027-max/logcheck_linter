@@ -1,5 +1,5 @@
-# .custom-gcl.yml
 version: v2.10.1
 plugins:
-  - module: 'github.com/sustatov027-max/logcheck_linter/analyzer'
-    path: ./analyzer
+  - module: github.com/sustatov027-max/logcheck_linter
+    path: ./
+    import: github.com/sustatov027-max/logcheck_linter/analyzer

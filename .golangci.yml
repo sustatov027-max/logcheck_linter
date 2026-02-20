@@ -1,13 +1,22 @@
-# .golangci.yml
 version: "2"
-
 linters:
-  default: none
   enable:
-    - logchecker
-  settings:
-    custom:
-      logchecker:
-        type: "module"
-        description: "Checks that log messages"
-        settings:
+    - logrules
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    paths:
+      - third_party$
+      - builtin$
+      - examples$
+formatters:
+  exclusions:
+    generated: lax
+    paths:
+      - third_party$
+      - builtin$
+      - examples$

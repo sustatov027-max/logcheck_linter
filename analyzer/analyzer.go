@@ -13,7 +13,7 @@ import (
 
 var Analyzer = &analysis.Analyzer{
 	Name: "logrules",
-	Doc:  "checks log messages",
+	Doc:  "checks log messages (custom linter)",
 	Run:  run,
 }
 
