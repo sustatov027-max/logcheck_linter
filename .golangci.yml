@@ -1,7 +1,14 @@
 version: "2"
 linters:
+  default: none
   enable:
     - logrules
+  settings:
+    custom:
+      logrules:
+        type: goplugin
+        path: ./logrules.so
+        description: "Checks log messages style"
   exclusions:
     generated: lax
     presets:
