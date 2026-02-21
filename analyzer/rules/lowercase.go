@@ -16,6 +16,10 @@ func (LowercaseRule) Check(pass *analysis.Pass, expr ast.Expr, value string, pos
 		return
 	}
 
+	if !isEnglishOnly(value) {
+		return
+	}
+
 	runes := []rune(value)
 	if len(runes) == 0 {
 		return
