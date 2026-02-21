@@ -1,6 +1,7 @@
 package rules
 
 import (
+	"go/ast"
 	"go/token"
 	"regexp"
 
@@ -11,7 +12,7 @@ var allowedRegexp = regexp.MustCompile(`^[a-zA-Zа-яА-Я0-9\s]+$`)
 
 type NoSpeacialRule struct{}
 
-func (NoSpeacialRule) Check(pass *analysis.Pass, value string, pos token.Pos){
+func (NoSpeacialRule) Check(pass *analysis.Pass, _ ast.Expr, value string, pos token.Pos){
 	if !allowedRegexp.MatchString(value){
 		pass.Reportf(pos, "log message contains forbidden characters or emoji")
 	}

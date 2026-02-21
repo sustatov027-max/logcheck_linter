@@ -1,6 +1,7 @@
 package rules
 
 import (
+	"go/ast"
 	"go/token"
 	"unicode"
 
@@ -9,7 +10,7 @@ import (
 
 type EnglishRule struct{}
 
-func (EnglishRule) Check(pass *analysis.Pass, value string, pos token.Pos) {
+func (EnglishRule) Check(pass *analysis.Pass, _ ast.Expr, value string, pos token.Pos) {
 	for _, r := range value {
 		if r > unicode.MaxASCII {
 			pass.Reportf(pos, "log message should contain only english characters")

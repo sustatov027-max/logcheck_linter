@@ -45,7 +45,7 @@ func run(pass *analysis.Pass) (interface{}, error) {
 			}
 
 			for _, r := range rulesSlice {
-				r.Check(pass, value, call.Args[0].Pos())
+				r.Check(pass, call.Args[0], value, call.Args[0].Pos())
 			}
 			rules.CheckSensitive(pass, call.Args[0])
 

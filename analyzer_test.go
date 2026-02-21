@@ -11,3 +11,8 @@ func TestAnalyzer(t *testing.T) {
 	testdata := analysistest.TestData()
 	analysistest.Run(t, testdata, analyzer.Analyzer, "./src/a")
 }
+
+func TestAnalyzerSuggestedFixes(t *testing.T) {
+	testdata := analysistest.TestData()
+	analysistest.RunWithSuggestedFixes(t, testdata, analyzer.Analyzer, "./src/a")
+}
