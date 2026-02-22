@@ -21,6 +21,7 @@ func init() {
 	RegisterRule(rules.LowercaseRule{})
 	RegisterRule(rules.EnglishRule{})
 	RegisterRule(rules.NoSpeacialRule{})
+	RegisterRule(rules.NoSensitiveRule{})
 }
 
 func run(pass *analysis.Pass) (interface{}, error) {
