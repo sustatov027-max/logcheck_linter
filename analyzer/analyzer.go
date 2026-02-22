@@ -110,7 +110,7 @@ func isSupportedLoggerCall(pass *analysis.Pass, call *ast.CallExpr) bool {
 
 func isLogMethod(name string) bool {
 	switch name {
-	case "Info", "Error", "Warn", "Debug":
+	case "Info", "Error", "Warn", "Debug", "Fatal":
 		return true
 	default:
 		return false
