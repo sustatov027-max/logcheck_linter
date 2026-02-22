@@ -3,6 +3,7 @@ package rules
 import (
 	"go/ast"
 	"go/token"
+	"strconv"
 	"strings"
 
 	"golang.org/x/tools/go/analysis"
@@ -27,7 +28,23 @@ func (NoSensitiveRule) Check(pass *analysis.Pass, expr ast.Expr, value string, p
 	switch v := expr.(type) {
 
 	case *ast.BinaryExpr:
-		pass.Reportf(v.Pos(), "log message may contain sensitive data")
+		pass.Report(analysis.Diagnostic{
+			Pos:     v.Pos(),
+			End:     v.End(),
+			Message: "log message may contain sensitive data",
+			SuggestedFixes: []analysis.SuggestedFix{
+				{
+					Message: "remove string concatenation from log message",
+					TextEdits: []analysis.TextEdit{
+						{
+							Pos:     v.Pos(),
+							End:     v.End(),
+							NewText: []byte(strconv.Quote(value)),
+						},
+					},
+				},
+			},
+		})
 		return
 
 	case *ast.Ident:
