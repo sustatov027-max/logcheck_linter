@@ -22,7 +22,7 @@ var sensitiveKeywords = []string{
 	"credential",
 }
 
-func CheckSensitive(pass *analysis.Pass, expr ast.Expr) {
+func Check(pass *analysis.Pass, expr ast.Expr, value string, pos token.Pos) {
 
 	switch v := expr.(type) {
 
