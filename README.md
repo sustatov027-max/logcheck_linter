@@ -4,6 +4,76 @@ Supports loggers:
 * log/slog
 * go.uber.org/zap
 ## Demonstration
+**main.go**
+```go 
+package main
+
+import (
+	"log/slog"
+
+	"go.uber.org/zap"
+)
+
+func main() {
+	log, _ := zap.NewProduction()
+	token := "wegegwe!@$#wgaw#13412"
+
+	log.Error("Русский язык") // only english rule
+	slog.Warn("token" + token) // no sensitive data rule
+	slog.Info(",,,weg$%🚀") // no special symbols rule
+	log.Error("First letter is upper") // lowercase rule
+}
+```
+
+Run the checking
+```bash
+./custom-gcl run ./...
+```
+
+**logs**
+```bash
+ivan-sustatov@w11:/mnt/d/Documents/Learn Go/test_linter$ ./custom-gcl run ./...
+main.go:13:12: log message should contain only english characters (logrules)
+        log.Error("Русский язык") // only english rule
+                  ^
+main.go:14:12: log message may contain sensitive data (logrules)
+        slog.Warn("token" + token) // no sensitive data rule
+                  ^
+main.go:15:12: log message contains forbidden characters or emoji (logrules)
+        slog.Info(",,,weg$%🚀") // no special symbols rule
+                  ^
+main.go:16:12: log message should start with lowercase letter (logrules)
+        log.Error("First letter is upper") // lowercase rule
+                  ^
+4 issues:
+* logrules: 4
+```
+
+Run the fixes
+```bash
+./custom-gcl run --fix ./...
+```
+
+**fixed_main.go**
+```go
+package main
+
+import (
+	"log/slog"
+
+	"go.uber.org/zap"
+)
+
+func main() {
+	log, _ := zap.NewProduction()
+	token := "wegegwe!@$#wgaw#13412"
+
+	log.Error("russian language")      // only english rule
+	slog.Warn("token")                 // no sensitive data rule
+	slog.Info("weg")                   // no special symbols rule
+	log.Error("first letter is upper") // lowercase rule
+}
+```
 
 
 ## Installation & Run
@@ -88,15 +158,16 @@ formatters:
 ```
 
 ### Checking work
-Проверка конкретного файла
+Checking a file
 ```bash
 ./custom-gcl run main.go
 ```
-Проверка всго проекта
+Checking the entire project
 ```bash
 ./custom-gcl run ./...
 ```
-С автоисправлением
+
+With autocorrection
 ```bash
 ./custom-gcl run --fix main.go
 ```
