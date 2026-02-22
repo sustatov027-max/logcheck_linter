@@ -25,4 +25,5 @@ func main() {
 	log.Error("spec symbols,,,")    // want "log message contains forbidden characters or emoji"
 	log.Warn("Русский язык") // want "log message should contain only english characters"
 	log.Info("user" + apikey)    // want "log message may contain sensitive data"
+	log.Error(",,,weg$%🚀") // want "log message contains forbidden characters or emoji"
 }

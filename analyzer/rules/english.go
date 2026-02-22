@@ -20,6 +20,10 @@ func (EnglishRule) Check(pass *analysis.Pass, expr ast.Expr, value string, pos t
 		return
 	}
 
+	if forbiddenCharsRegexp.MatchString(value) {
+		return
+	}
+
 	if !isEnglishOnly(value) {
 		if lit, ok := expr.(*ast.BasicLit); ok && lit.Kind == token.STRING {
 			translateStr := Translate(value, "ru", "en")
